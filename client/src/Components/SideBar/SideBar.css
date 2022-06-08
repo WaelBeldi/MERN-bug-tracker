@@ -1,0 +1,10 @@
+.side-link,
+.side-link:focus,
+.side-link:hover,
+.side-link:visited,
+.side-link:link,
+.side-link:active {
+  font-size: large;
+  text-decoration: none;
+  color: #1a2027;
+}

@@ -1,0 +1,10 @@
+.link,
+.link:focus,
+.link:hover,
+.link:visited,
+.link:link,
+.link:active {
+  font-size: large;
+  text-decoration: none;
+  color: white;
+}
