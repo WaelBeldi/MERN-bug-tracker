@@ -1,6 +1,6 @@
 // const BGcolor = ["rgba(250, 89, 89, 1)", "rgba(247, 159, 129, 1)", "rgba(245, 218, 129, 1)",
 //                  "rgba(87, 204, 153, 0.8)", "rgba(56, 163, 165, 0.8)", "rgba(34, 87, 122, 0.8)"];
-const BGcolor = ["rgba(236, 62, 64, 1)", "rgba(255, 155, 43, 1)", "rgba(245, 216, 0, 1)",
+const BGcolor = ["rgba(236, 62, 64, 0.8)", "rgba(255, 155, 43, 0.8)", "rgba(245, 216, 0, 0.8)",
                  "rgba(87, 204, 153, 0.8)", "rgba(56, 163, 165, 0.8)", "rgba(34, 87, 122, 0.8)"];
 
 export default function PriorityColors(priority) {

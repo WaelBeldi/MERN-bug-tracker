@@ -6,33 +6,63 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { Avatar, CardActions, CardHeader } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const OutlinedCard = (props) => {
   const { title, version, name, createdOn, isResolved, assigned } = props.bug;
 
   return (
     <React.Fragment>
-      <CardContent style={{ color: props.Tcolor }}>
-        <Typography color="text.primary" gutterBottom>
-          {props.level}
-          <Typography variant="inline" sx={{ float: "right" }}>
-            {isResolved ? "RESOLVED" : "ACTIVE"}
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: props.BGcolor }}>
+            {props.level === "High"
+              ? "H"
+              : props.level === "Moderate"
+              ? "M"
+              : "L"}
+          </Avatar>
+        }
+        title={
+          <Typography variant="h6" color="text.primary">
+            {props.level}
+            <Typography variant="inline" sx={{ float: "right" }}>
+              {props.bug.isResolved ? "RESOLVED" : "ACTIVE"}
+            </Typography>
           </Typography>
-        </Typography>
+        }
+        // subheader="September 14, 2016"
+        sx={{ p: "0.5rem 1rem", bgcolor: props.BGcolor }}
+      />
+      <CardContent style={{ color: props.Tcolor }}>
         <Typography variant="h5" component="div">
           {title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.primary">
           Version: {version}
         </Typography>
-        <Typography variant="body2">
+        <Typography
+          sx={{ fontSize: 14 }}
+          color="text.primary"
+          fontStyle="italic"
+        >
           Created by {name}
           <Typography variant="inline" sx={{ float: "right" }}>
             {moment(createdOn).fromNow()}
           </Typography>
         </Typography>
-        <Typography variant="body2">Assigned to {assigned}</Typography>
+        <Typography
+          sx={{ fontSize: 14 }}
+          color="text.primary"
+          fontStyle="italic"
+        >
+          Assigned to {assigned}
+        </Typography>
       </CardContent>
+      <CardActions sx={{ pt: 0, justifyContent: "flex-end" }}>
+          <ExpandMoreIcon style={{ float: "right" }} onClick={props.clicked} />
+      </CardActions>
     </React.Fragment>
   );
 };
@@ -47,12 +77,10 @@ const BugCard = (props) => {
   };
 
   return (
-    <Box onClick={Clicked}>
-      <Card style={{ backgroundColor: BGcolor }}>
-        <OutlinedCard bug={props.bug} level={level} />
-      </Card>
-    </Box>
+    <Card sx={{}} elevation={3}>
+      <OutlinedCard bug={props.bug} level={level} BGcolor={BGcolor} clicked={Clicked} />
+    </Card>
   );
-}
+};
 
 export default BugCard;

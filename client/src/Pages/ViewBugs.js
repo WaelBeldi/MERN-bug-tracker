@@ -15,7 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { Container, ImageList } from "@mui/material";
-import BugViewTwo from "../Components/BugComps/BugViewTwo";
+import BugCardTwo from "../Components/BugComps/BugCardTwo";
 
 const ViewBugs = ({ setCurrentId }) => {
   const bugs = useSelector((state) => state.bugsReducers);
@@ -31,7 +31,6 @@ const ViewBugs = ({ setCurrentId }) => {
   const [displayBug, setDisplayBug] = useState(null);
   function BugClicked(_id, priority) {
     setDisplayBug(_id);
-    console.log(_id);
   }
   function CollapseView() {
     setDisplayBug(null);
@@ -41,7 +40,6 @@ const ViewBugs = ({ setCurrentId }) => {
       ...filterValues,
       [e.target.name]: e.target.value,
     });
-    console.log(filterValues);
   };
   const filter = (bug) => {
     return (
@@ -75,7 +73,7 @@ const ViewBugs = ({ setCurrentId }) => {
   ) : (
     <Container
       component="main"
-      sx={{ padding: { xs: "0px" }, width: { xs: "95%" } }}
+      sx={{ p: { xs: "0px" }, width: { xs: "95%" } }}
     >
       <Grid container spacing={2}>
         {/* PRIORITY */}
@@ -190,6 +188,7 @@ const ViewBugs = ({ setCurrentId }) => {
               sm: "repeat(1, 1fr)",
               md: "repeat(2, 1fr)",
             },
+            justifyItems: "center",
           }}
         >
           {bugs
@@ -198,7 +197,7 @@ const ViewBugs = ({ setCurrentId }) => {
             .filter((bug) => filter(bug))
             .map((bug, key) => {
               return (
-                <ImageListItem key={key}>
+                <ImageListItem key={key} sx={{ width: "98%" }}>
                   {bug._id !== displayBug && (
                     <BugCard bug={bug} clicked={BugClicked} />
                   )}

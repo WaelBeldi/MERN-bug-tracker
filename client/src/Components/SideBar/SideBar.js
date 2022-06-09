@@ -15,6 +15,7 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import common from "@mui/material/colors/common";
 import bugReport from "../../Assets/bug-report.png";
 import bugLoop from "../../Assets/bug-loop.png";
+import bugDashboard from "../../Assets/bug-dashboard.png";
 
 const drawerWidth = "20%";
 
@@ -49,7 +50,14 @@ const DrawerElement = ({ setCurrentId }) => {
         <Divider />
         <List sx={{ padding: 0 }}>
           <Link to="/" className="side-link" onClick={clickedOptions}>
-            <ListItemButton divider>DashBoard</ListItemButton>
+            <ListItemButton divider>
+              <img
+                src={bugDashboard}
+                alt="Bug-dashboard"
+                style={{ width: "24px", marginRight: "5px" }}
+              />
+              DashBoard
+            </ListItemButton>
           </Link>
           {user.result.role === "admin" && (
             <Link
@@ -61,7 +69,7 @@ const DrawerElement = ({ setCurrentId }) => {
                 <img
                   src={bugReport}
                   alt="Bug-report"
-                  style={{ width: "24px" }}
+                  style={{ width: "24px", marginRight: "5px" }}
                 />
                 Create Bug Issue
               </ListItemButton>
@@ -69,7 +77,7 @@ const DrawerElement = ({ setCurrentId }) => {
           )}
           <Link to="/viewBugs" className="side-link" onClick={clickedOptions}>
             <ListItemButton divider>
-              <img src={bugLoop} alt="Bug-loop" style={{ width: "24px" }} />
+              <img src={bugLoop} alt="Bug-loop" style={{ width: "24px", marginRight: "5px" }} />
               View Bugs
             </ListItemButton>
           </Link>
@@ -104,7 +112,7 @@ const SideBar = ({ setCurrentId, window }) => {
           color: common.white,
           position: "fixed",
           top: "11px",
-          left: "16px"
+          left: "16px",
         }}
       ></BugReportIcon>
       <Box
