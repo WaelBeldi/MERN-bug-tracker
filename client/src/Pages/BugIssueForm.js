@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { createBug, updateBug } from "../Redux/actions/bugsActions";
@@ -17,6 +17,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+
+import "./BugIssueForm.css";
 
 const BugIssueForm = ({ currentId, setCurrentId }) => {
   const [bugObject, setBugOject] = useState(new BugModel());
@@ -188,7 +190,12 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
             </Grid>
           </Grid>
           {/* SUBMIT BUTTON */}
-          <Grid container justifyContent="center">
+          <Grid container  gap={1} sx={{maxWidth:"66%", margin: "0 auto", justifyContent: "center"}}>
+              <Button variant="outlined" sx={{ mt: 2, mb: 2, minWidth: "33%", minHeight: "10%" }}>
+            <Link to="/viewBugs" className="cancel-link" color="primary.main">
+                Cancel
+            </Link>
+              </Button>
             <Button
               variant="contained"
               type="submit"

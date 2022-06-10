@@ -39,7 +39,7 @@ const OutlinedCard = (props) => {
         <Typography variant="h5" component="div">
           {title}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.primary">
+        <Typography sx={{ mb: 1.5 }} color="text.primary" fontStyle="italic">
           Version: {version}
         </Typography>
         <Typography
@@ -77,7 +77,7 @@ const BugCard = (props) => {
   };
 
   return (
-    <Card sx={{}} elevation={3}>
+    <Card elevation={3}>
       <OutlinedCard bug={props.bug} level={level} BGcolor={BGcolor} clicked={Clicked} />
     </Card>
   );

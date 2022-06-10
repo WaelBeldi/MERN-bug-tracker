@@ -1,24 +1,21 @@
-import express from 'express'
-import cors from 'cors'
-import mongoose from 'mongoose'
-import dotenv from 'dotenv'
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config({ path: "./config/.env" });
+const connectDB = require("./config/connectDB");
 
-import bugRoutes from './Routes/bugRoutes.js'
-import userRoutes from './Routes/userRoutes.js'
+const bugRoutes = require("./routes/bugRoutes");
+const userRoutes = require("./routes/userRoutes");
 
-const app = express()
+const app = express();
+const port = process.env.PORT;
+connectDB();
 
-dotenv.config()
+app.use(express.json());
+app.use(cors());
 
-app.use(express.json({ extended : true }))
-app.use(express.urlencoded({ extended : true }))
-app.use(cors())
+app.use("/bugs", bugRoutes);
+app.use("/user", userRoutes);
 
-app.use('/bugs', bugRoutes)
-app.use('/user', userRoutes)
-
-const PORT = process.env.PORT || 3350
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => {app.listen(PORT, () => console.log(`Server running on port : ${PORT}, Connected to database`))})
-    .catch((error) => console.log(error))
-
+app.listen(port, (err) => {
+  err ? console.log(err) : console.log(`Server is running at ${port}.`);
+});

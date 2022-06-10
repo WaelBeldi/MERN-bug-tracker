@@ -1,0 +1,9 @@
+.cancel-link,
+.cancel-link:focus,
+.cancel-link:hover,
+.cancel-link:visited,
+.cancel-link:link,
+.cancel-link:active {
+  text-decoration: none;
+  color: #1976d2
+}

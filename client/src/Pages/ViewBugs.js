@@ -189,6 +189,7 @@ const ViewBugs = ({ setCurrentId }) => {
               md: "repeat(2, 1fr)",
             },
             justifyItems: "center",
+            mt: "1rem"
           }}
         >
           {bugs
@@ -197,7 +198,12 @@ const ViewBugs = ({ setCurrentId }) => {
             .filter((bug) => filter(bug))
             .map((bug, key) => {
               return (
-                <ImageListItem key={key} sx={{ width: "98%" }}>
+                <ImageListItem
+                  key={key}
+                  sx={{ width: "98%" }}
+                  // bug={bug}
+                  // setCurrentId={setCurrentId}
+                  >
                   {bug._id !== displayBug && (
                     <BugCard bug={bug} clicked={BugClicked} />
                   )}

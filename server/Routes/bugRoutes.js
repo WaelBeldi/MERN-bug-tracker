@@ -1,13 +1,22 @@
-import express from 'express'
-import { getBugs, createBug, updateBug, deleteBug, resolveBug, devRespond } from '../Controllers/bugsController.js'
-import auth from '../middleware/auth.js'
-const router = express.Router()
+const express = require("express");
+
+const {
+  getBugs,
+  createBug,
+  updateBug,
+  deleteBug,
+  resolveBug,
+  devRespond,
+} = require("../controllers/bugsControllers");
+const isAuth = require("../middlewares/isAuth");
+
+const router = express.Router();
 
 router.get('/', getBugs)
-router.post('/', createBug)
-router.put('/:id', auth, updateBug)
-router.delete('/:id', auth, deleteBug)
-router.put('/:id/isResolved', auth, resolveBug)
-router.put('/:id/devRespond', auth, devRespond)
+router.post('/', isAuth, createBug)
+router.put('/:id', isAuth, updateBug)
+router.delete('/:id', isAuth, deleteBug)
+router.put('/:id/isResolved', isAuth, resolveBug)
+router.put('/:id/devRespond', isAuth, devRespond)
 
-export default router;
+module.exports = router;
