@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { priorities, versions } from "../Models/BugData";
 
@@ -14,8 +14,9 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import { Container, ImageList } from "@mui/material";
-import BugCardTwo from "../Components/BugComps/BugCardTwo";
+import { Container, ImageList, Typography } from "@mui/material";
+import { getBugs } from "../Redux/actions/bugsActions";
+// import BugCardTwo from "../Components/BugComps/BugCardTwo";
 
 const ViewBugs = ({ setCurrentId }) => {
   const bugs = useSelector((state) => state.bugsReducers);
@@ -43,7 +44,7 @@ const ViewBugs = ({ setCurrentId }) => {
   };
   const filter = (bug) => {
     return (
-      (user.result.role !== "admin"
+      ((user.result.role !== "admin" && user.result.role !== "tester")
         ? assignedBugs
           ? bug.assigned === user.result.userName
           : bug
@@ -59,6 +60,10 @@ const ViewBugs = ({ setCurrentId }) => {
         : bug.priority === filterValues.priority)
     );
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBugs());
+  }, [dispatch]);
 
   return !bugs.length ? (
     <Grid
@@ -68,7 +73,7 @@ const ViewBugs = ({ setCurrentId }) => {
       justifyContent="center"
       style={{ height: "80vh" }}
     >
-      <CircularProgress sx={{ margin: "0 auto" }} />
+      <Typography variant="h5">No bug issues found!</Typography>
     </Grid>
   ) : (
     <Container
@@ -77,7 +82,7 @@ const ViewBugs = ({ setCurrentId }) => {
     >
       <Grid container spacing={2}>
         {/* PRIORITY */}
-        <Grid item sm={12} md={user.result.role === "admin" ? 4 : 3}>
+        <Grid item sm={12} md={(user.result.role === "admin" || user.result.role === "tester") ? 4 : 3}>
           <TextField
             select
             label="Priority"
@@ -97,7 +102,7 @@ const ViewBugs = ({ setCurrentId }) => {
           </TextField>
         </Grid>
         {/* STATUS */}
-        <Grid item sm={12} md={user.result.role === "admin" ? 4 : 3}>
+        <Grid item sm={12} md={(user.result.role === "admin" || user.result.role === "tester") ? 4 : 3}>
           <TextField
             select
             label="Status"
@@ -113,7 +118,7 @@ const ViewBugs = ({ setCurrentId }) => {
           </TextField>
         </Grid>
         {/* VERSION */}
-        <Grid item sm={12} md={user.result.role === "admin" ? 4 : 3}>
+        <Grid item sm={12} md={(user.result.role === "admin" || user.result.role === "tester") ? 4 : 3}>
           <TextField
             select
             label="Version"
@@ -132,7 +137,7 @@ const ViewBugs = ({ setCurrentId }) => {
           </TextField>
         </Grid>
         {/* ASSIGNED */}
-        {user.result.role !== "admin" && (
+        {(user.result.role !== "admin" && user.result.role !== "tester") && (
           <FormControlLabel
             control={
               <Switch

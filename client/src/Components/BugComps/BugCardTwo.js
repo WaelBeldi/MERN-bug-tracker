@@ -50,9 +50,9 @@ export default function BugCardTwo(props) {
     ? 3 + parseInt(props.bug.priority)
     : props.bug.priority;
   const { level, BGcolor } = PriorityColors(priorityTheme);
-  const Clicked = () => {
-    props.clicked(props.bug._id, priorityTheme);
-  };
+  // const Clicked = () => {
+  //   props.clicked(props.bug._id, priorityTheme);
+  // };
 
   const editClicked = () => {
     props.setCurrentId(props.bug._id);
@@ -128,7 +128,7 @@ export default function BugCardTwo(props) {
             Details
           </Typography>
           <MDEditor.Markdown source={props.bug.details} />
-          {((user.result.role === "admin" && props.bug.devResponse) ||
+          {((user.result.role === "tester" && props.bug.devResponse) ||
             (user.result.userName === props.bug.assigned &&
               stateEditResponse)) && (
             <Typography
@@ -140,7 +140,7 @@ export default function BugCardTwo(props) {
               Developer Response
             </Typography>
           )}
-          {user.result.role === "admin" && props.bug.devResponse && (
+          {user.result.role === "tester" && props.bug.devResponse && (
             <Typography>{props.bug.devResponse}</Typography>
           )}
           {user.result.userName === props.bug.assigned &&

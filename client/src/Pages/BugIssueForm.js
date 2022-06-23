@@ -19,16 +19,21 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 
 import "./BugIssueForm.css";
+import { getDevs } from "../Redux/actions/usersActions";
 
 const BugIssueForm = ({ currentId, setCurrentId }) => {
   const [bugObject, setBugOject] = useState(new BugModel());
   const bug = useSelector((state) =>
     currentId ? state.bugsReducers.find((b) => b._id === currentId) : null
   );
-  const users = useSelector((state) => state.authReducers);
+  const users = useSelector((state) => state.usersReducers);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+
+  useEffect(() => {
+    dispatch(getDevs());
+  }, [dispatch, currentId]);
 
   useEffect(() => {
     if (bug) setBugOject(bug);
@@ -59,7 +64,7 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 2,
+          // marginTop: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -190,12 +195,19 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
             </Grid>
           </Grid>
           {/* SUBMIT BUTTON */}
-          <Grid container  gap={1} sx={{maxWidth:"66%", margin: "0 auto", justifyContent: "center"}}>
-              <Button variant="outlined" sx={{ mt: 2, mb: 2, minWidth: "33%", minHeight: "10%" }}>
-            <Link to="/viewBugs" className="cancel-link" color="primary.main">
+          <Grid
+            container
+            gap={1}
+            sx={{ maxWidth: "66%", margin: "0 auto", justifyContent: "center" }}
+          >
+            <Button
+              variant="outlined"
+              sx={{ mt: 2, mb: 2, minWidth: "33%", minHeight: "10%" }}
+            >
+              <Link to="/viewBugs" className="cancel-link" color="primary.main">
                 Cancel
-            </Link>
-              </Button>
+              </Link>
+            </Button>
             <Button
               variant="contained"
               type="submit"

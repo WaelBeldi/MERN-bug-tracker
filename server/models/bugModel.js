@@ -1,14 +1,26 @@
 const mongoose = require("mongoose");
 
 const bugSchema = mongoose.Schema({
-  title: String,
-  version: String,
-  priority: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  version: {
+    type: String,
+    required: true,
+  },
+  priority: {
+    type: String,
+    required: true,
+  },
   steps: String,
   details: String,
   creator: String,
   name: String,
-  assigned: String,
+  assigned: {
+    type: String,
+    required: true,
+  },
   devResponse: String,
   isResolved: {
     type: Boolean,

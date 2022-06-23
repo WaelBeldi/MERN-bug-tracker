@@ -4,7 +4,6 @@ import "./NavBar.css"
 
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import BugReportIcon from "@mui/icons-material/BugReport";
-import { common } from "@mui/material/colors";
 
 const NavBar = ({setUser}) => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -26,7 +25,7 @@ const NavBar = ({setUser}) => {
       <Toolbar>
         <BugReportIcon
           fontSize="large"
-          sx={{ marginRight: "1rem", visibility: { xs: "hidden", sm: "visible" } }}
+          sx={{ marginRight: "1rem", visibility: { xs: "hidden", lg: "visible" } }}
         ></BugReportIcon>
         <Typography
           variant="h5"
@@ -45,7 +44,7 @@ const NavBar = ({setUser}) => {
             }}
             variant="inline"
           >
-            &nbsp;{!user ? "" : user.result.role === "admin" ? "ADMIN" : "DEV"}
+            &nbsp;{!user ? "" : user.result.role === "admin" ? "ADMIN" : (user.result.role === "tester" ? "TESTER" : "DEV")}
           </Typography>
         </Typography>
         {user && (

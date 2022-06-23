@@ -1,10 +1,24 @@
-.side-link,
-.side-link:focus,
-.side-link:hover,
-.side-link:visited,
-.side-link:link,
-.side-link:active {
+.side-link {
   font-size: large;
   text-decoration: none;
   color: #1a2027;
+}
+
+/* .side-link:active {
+  background-color: "red"
+} */
+
+/* .css-1qcy8ya-MuiModal-root-MuiDrawer-root .MuiDrawer-paper,
+.css-qa0z8c-MuiDrawer-docked .MuiDrawer-paper {
+  background-color: rgb(17, 24, 39);
+  color: rgba(255, 255, 255, 0.7);
+  box-shadow: 2px 2px 4px -1px rgb(0 0 0 / 20%), 4px 4px 5px 0px rgb(0 0 0 / 14%), 1px 1px 10px 0px rgb(0 0 0 / 12%)
+} */
+
+/* .css-1fj624j-MuiButtonBase-root-MuiListItemButton-root {
+
+} */
+
+.MuiListItemButton.Mui-selected {
+  background-color: "red"
 }

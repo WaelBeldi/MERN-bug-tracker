@@ -32,7 +32,6 @@ const OutlinedCard = (props) => {
             </Typography>
           </Typography>
         }
-        // subheader="September 14, 2016"
         sx={{ p: "0.5rem 1rem", bgcolor: props.BGcolor }}
       />
       <CardContent style={{ color: props.Tcolor }}>

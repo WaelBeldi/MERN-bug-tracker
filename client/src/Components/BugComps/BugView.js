@@ -67,18 +67,6 @@ const BugView = (props) => {
     setStateEditResponse(!stateEditResponse);
   };
 
-  // const style = {
-  //   position: 'absolute',
-  //   top: '50%',
-  //   left: '50%',
-  //   transform: 'translate(-50%, -50%)',
-  //   width: 400,
-  //   bgcolor: 'background.paper',
-  //   border: '2px solid #000',
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -134,18 +122,16 @@ const BugView = (props) => {
             Details:
           </Typography>
           <MDEditor.Markdown source={props.bug.details} />
+          
           <Divider sx={{ mt: 1, mb: 1 }} />
 
-          {/* {((user.result.role === "admin" && props.bug.devResponse) ||
-            (user.result.userName === props.bug.assigned &&
-              stateEditResponse)) && (
-          )} */}
           <Typography variant="h5" color="primary.main">
             Developer's Response:
           </Typography>
-          {user.result.role === "admin" && props.bug.devResponse && (
+          {(user.result.role === "admin" || user.result.role === "tester") && props.bug.devResponse && (
             <Typography>{props.bug.devResponse}</Typography>
           )}
+
           {user.result.userName === props.bug.assigned &&
             (stateEditResponse ? (
               <Typography>{props.bug.devResponse}</Typography>
@@ -225,12 +211,11 @@ const BugView = (props) => {
                     elevation={3}
                   >
                     <Typography
-                      id="modal-modal-title"
                       variant="h6"
                       component="h2"
                       textAlign="center"
                     >
-                      Are you sure you want to delete this bug issue?
+                      Are you sure you want to delete "{props.bug.title}"?
                     </Typography>
                     <Box
                       sx={{

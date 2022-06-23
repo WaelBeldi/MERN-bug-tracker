@@ -67,12 +67,3 @@ export const signup = (userObject, setUser, setEmailError, setSignup) =>  async 
         console.log(error.message)
     }
 }
-
-export const getDevs = () => async (dispatch) => {
-    try {
-        const { data } = await api.fetchDevs();
-        dispatch({ type: FETCH, payload: data})
-    } catch(error) {
-        console.log(error.message)
-    } 
-}

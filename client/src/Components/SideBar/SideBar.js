@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SideBar.css";
 import {
@@ -16,8 +16,11 @@ import common from "@mui/material/colors/common";
 import bugReport from "../../Assets/bug-report.png";
 import bugLoop from "../../Assets/bug-loop.png";
 import bugDashboard from "../../Assets/bug-dashboard.png";
+import users_icon from "../../Assets/users_icon.png";
 
-const drawerWidth = "20%";
+const drawerWidth = "250px";
+
+
 
 const DrawerElement = ({ setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -38,7 +41,12 @@ const DrawerElement = ({ setCurrentId }) => {
       }}
     >
       <Toolbar />
-      <Box sx={{ overflow: "auto" }}>
+      <Box
+        sx={{
+          overflow: "auto",
+          p: "0px 12px",
+        }}
+      >
         <Divider />
         <List>
           <ListItem>
@@ -47,40 +55,92 @@ const DrawerElement = ({ setCurrentId }) => {
             </Typography>
           </ListItem>
         </List>
+
         <Divider />
+
         <List sx={{ padding: 0 }}>
           <Link to="/" className="side-link" onClick={clickedOptions}>
-            <ListItemButton divider>
+            <ListItemButton
+              sx={{
+                p: "10px 16px",
+                m: "28px 0 4px 0",
+                fontSize: "medium",
+                borderRadius: "0.5rem"
+              }}
+            >
               <img
                 src={bugDashboard}
                 alt="Bug-dashboard"
-                style={{ width: "24px", marginRight: "5px" }}
+                style={{ width: "24px", marginRight: "1rem" }}
               />
-              DashBoard
+              Dashboard
             </ListItemButton>
           </Link>
+
           {user.result.role === "admin" && (
+            <Link
+              to="/usersManagement"
+              className="side-link"
+              onClick={clickedOptions}
+            >
+              <ListItemButton
+                sx={{
+                  p: "10px 16px",
+                  mb: "4px",
+                  fontSize: "medium",
+                  borderRadius: "0.5rem",
+                }}
+              >
+                <img
+                  src={users_icon}
+                  alt="Users-tab"
+                  style={{ width: "24px", marginRight: "1rem" }}
+                />
+                Users
+              </ListItemButton>
+            </Link>
+          )}
+
+          <Link to="/viewBugs" className="side-link" onClick={clickedOptions}>
+            <ListItemButton
+              sx={{
+                p: "10px 16px",
+                mb: "4px",
+                fontSize: "medium",
+                borderRadius: "0.5rem",
+              }}
+            >
+              <img
+                src={bugLoop}
+                alt="Bug-loop"
+                style={{ width: "24px", marginRight: "1rem" }}
+              />
+              Bugs
+            </ListItemButton>
+          </Link>
+          {(user.result.role === "admin" || user.result.role === "tester") && (
             <Link
               to="/createBugIssue"
               className="side-link"
               onClick={clickedOptions}
             >
-              <ListItemButton divider>
+              <ListItemButton
+                sx={{
+                  p: "10px 16px",
+                  mb: "4px",
+                  fontSize: "medium",
+                  borderRadius: "0.5rem",
+                }}
+              >
                 <img
                   src={bugReport}
                   alt="Bug-report"
-                  style={{ width: "24px", marginRight: "5px" }}
+                  style={{ width: "24px", marginRight: "1rem" }}
                 />
-                Create Bug Issue
+                New Bug
               </ListItemButton>
             </Link>
           )}
-          <Link to="/viewBugs" className="side-link" onClick={clickedOptions}>
-            <ListItemButton divider>
-              <img src={bugLoop} alt="Bug-loop" style={{ width: "24px", marginRight: "5px" }} />
-              View Bugs
-            </ListItemButton>
-          </Link>
         </List>
       </Box>
     </Drawer>
@@ -106,7 +166,7 @@ const SideBar = ({ setCurrentId, window }) => {
         sx={{
           // marginLeft: "1rem",
           // marginTop: "1rem",
-          display: { sm: "none" },
+          display: { lg: "none" },
           zIndex: (theme) => theme.zIndex.drawer + 2,
           cursor: "pointer",
           color: common.white,
@@ -128,10 +188,10 @@ const SideBar = ({ setCurrentId, window }) => {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", lg: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: "200px",
+              // width: "185px",
             },
           }}
         >
@@ -140,7 +200,7 @@ const SideBar = ({ setCurrentId, window }) => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", lg: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

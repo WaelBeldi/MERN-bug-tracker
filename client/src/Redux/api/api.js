@@ -17,3 +17,8 @@ export const devRespond = (id, devResponse) => API.put(`/bugs/${id}/devRespond`,
 export const signin = (userObject) => API.post('/user/signin', userObject);
 export const signup = (userObject) => API.post('/user/signup', userObject);
 export const fetchDevs = () => API.get('/user/dev');
+
+export const fetchUsers = () => API.get('/user');
+export const createUser = (newUser) => API.post('/user', newUser);
+export const updateUser = (id, updatedUser) => API.put(`/user/${id}`, updatedUser);
+export const deleteUser = (id) => API.delete(`/user/${id}`);
