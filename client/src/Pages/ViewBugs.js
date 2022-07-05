@@ -7,7 +7,6 @@ import BugCard from "../Components/BugComps/BugCard";
 import BugView from "../Components/BugComps/BugView";
 
 import Grid from "@mui/material/Grid";
-import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
 import Switch from "@mui/material/Switch";

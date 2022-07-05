@@ -7,12 +7,8 @@ import {
   Avatar,
   Box,
   Button,
-  FormControlLabel,
-  FormLabel,
   Grid,
   Container,
-  Radio,
-  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
@@ -89,7 +85,7 @@ const Auth = ({ setUser }) => {
     ) {
       setDisableSubmit(false);
     }
-  });
+  }, [userObject.role, userObject.userName, userObject.email, userObject.password, Signup.state]);
 
   // useEffect(() => {
   //   if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(userObject.email)){
@@ -105,7 +101,7 @@ const Auth = ({ setUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(
         userObject.email
       )
     ) {

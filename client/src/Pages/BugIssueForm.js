@@ -21,6 +21,9 @@ import MenuItem from "@mui/material/MenuItem";
 import "./BugIssueForm.css";
 import { getDevs } from "../Redux/actions/usersActions";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 const BugIssueForm = ({ currentId, setCurrentId }) => {
   const [bugObject, setBugOject] = useState(new BugModel());
   const bug = useSelector((state) =>
@@ -39,25 +42,46 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
     if (bug) setBugOject(bug);
   }, [bug, dispatch]);
 
-  const changeInput = (e) => {
-    setBugOject({
-      ...bugObject,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (currentId !== null) {
-      dispatch(
-        updateBug(currentId, { ...bugObject, name: user?.result?.userName })
-      );
-    } else {
-      dispatch(createBug({ ...bugObject, name: user?.result?.userName }));
+  const formik = useFormik({
+    initialValues: { ...bugObject },
+    validationSchema: Yup.object({
+      title: Yup.string().required("Title is required."),
+      version: Yup.string().required("Version is required."),
+      priority: Yup.string().required("Priority is required."),
+      assigned: Yup.string().required("You need to assign the bug issue to a developer."),
+    }),
+    onSubmit: (values) => {
+      if (currentId !== null) {
+        dispatch(
+          updateBug(currentId, { ...values, name: user?.result?.userName })
+        );
+      } else {
+        dispatch(createBug({ ...values, name: user?.result?.userName }));
+      }
+      navigate("/viewBugs");
+      setCurrentId(null);
     }
-    navigate("/viewBugs");
-    setCurrentId(null);
-  };
+  })
+
+  // const changeInput = (e) => {
+  //   setBugOject({
+  //     ...bugObject,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (currentId !== null) {
+  //     dispatch(
+  //       updateBug(currentId, { ...bugObject, name: user?.result?.userName })
+  //     );
+  //   } else {
+  //     dispatch(createBug({ ...bugObject, name: user?.result?.userName }));
+  //   }
+  //   navigate("/viewBugs");
+  //   setCurrentId(null);
+  // };
 
   return (
     <Container component="main">
@@ -74,7 +98,7 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
           Report Bug Issue
         </Typography>
 
-        <form onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <form onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             {/* PRIORITY */}
             <Grid item sm={4} md={4} xs={4}>
@@ -83,11 +107,14 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
                 variant="standard"
                 label="Priority"
                 name="priority"
-                value={bugObject.priority}
-                onChange={(e) => {
-                  changeInput(e);
-                }}
+                value={formik.values.priority}
+                onChange={formik.handleChange}
                 sx={{ width: "100%" }}
+                required
+                error={formik.errors.priority  ? formik.errors.priority : false}
+                helperText={
+                  formik.errors.priority ? formik.errors.priority : " "
+                }
               >
                 {priorities.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -103,11 +130,14 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
                 variant="standard"
                 label="Version"
                 name="version"
-                value={bugObject.version}
-                onChange={(e) => {
-                  changeInput(e);
-                }}
+                value={formik.values.version}
+                onChange={formik.handleChange}
                 sx={{ width: "100%" }}
+                required
+                error={formik.errors.version  ? formik.errors.version : false}
+                helperText={
+                  formik.errors.version ? formik.errors.version : " "
+                }
               >
                 {versions.map((version, key) => (
                   <MenuItem key={key} value={version}>
@@ -123,12 +153,14 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
                 variant="standard"
                 label="Assign to"
                 name="assigned"
-                value={bugObject.assigned}
-                onChange={(e) => {
-                  changeInput(e);
-                }}
-                helperText=""
+                value={formik.values.assigned}
+                onChange={formik.handleChange}
                 sx={{ width: "100%" }}
+                required
+                error={formik.errors.assigned  ? formik.errors.assigned : false}
+                helperText={
+                  formik.errors.assigned ? formik.errors.assigned : " "
+                }
               >
                 {users.map((user) => (
                   <MenuItem key={user._id} value={user.userName}>
@@ -141,16 +173,18 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
             <Grid item xs={12} sm={12}>
               <TextField
                 name="title"
-                value={bugObject.title}
-                onChange={(e) => {
-                  changeInput(e);
-                }}
+                value={formik.values.title}
+                onChange={formik.handleChange}
                 required
                 fullWidth
                 id="bugTitle"
                 label="Bug Issue Title"
                 autoFocus
                 variant="standard"
+                error={formik.errors.title  ? formik.errors.title : false}
+                helperText={
+                  formik.errors.title ? formik.errors.title : " "
+                }
               />
             </Grid>
             {/* STEPS MD EDITOR */}
@@ -164,7 +198,7 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
               </Typography>
               <MDEditor
                 name="steps"
-                value={bugObject.steps}
+                value={formik.values.steps}
                 onChange={(val) => {
                   setBugOject((prevState) => ({
                     ...prevState,
@@ -184,7 +218,7 @@ const BugIssueForm = ({ currentId, setCurrentId }) => {
               </Typography>
               <MDEditor
                 name="details"
-                value={bugObject.details}
+                value={formik.values.details}
                 onChange={(val) => {
                   setBugOject((prevState) => ({
                     ...prevState,

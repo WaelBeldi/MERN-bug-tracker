@@ -18,8 +18,7 @@ import Button from "@mui/material/Button";
 import { visuallyHidden } from "@mui/utils";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser, deleteUser, getUsers } from "../Redux/actions/usersActions";
-import UserCreateUpdate from "../Components/UsersComps/UserCreateUpdate";
+import { deleteUser, getUsers } from "../Redux/actions/usersActions";
 import UserDelete from "../Components/UsersComps/UserDelete";
 import { useNavigate } from "react-router-dom";
 
@@ -135,8 +134,6 @@ const UsersManagement = ({ currentId, setCurrentId }) => {
   const [openDelete, setOpenDelete] = useState(false);
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
-
-  
 
   const navigate = useNavigate();
 

@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { getBugs } from "../../Redux/actions/bugsActions";
-import { getUsers, getDevs } from "../../Redux/actions/usersActions";
 
 import { Box, Toolbar } from "@mui/material";
 
@@ -17,13 +14,6 @@ const MainView = () => {
   const [currentId, setCurrentId] = useState(null);
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getBugs());
-  //   dispatch(getDevs());
-  //   dispatch(getUsers());
-  // }, [dispatch, currentId]);
-
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -32,9 +22,7 @@ const MainView = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            // p: "1rem",
             mt: "1rem",
-            // width: { sm: '80%', xs: "150%" },
             width: {xs: '100%', lg: '80%'}, position: {xs: 'absolute', lg: 'static'}
           }}
         >

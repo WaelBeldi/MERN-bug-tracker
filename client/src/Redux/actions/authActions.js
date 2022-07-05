@@ -1,4 +1,4 @@
-import { AUTH, FETCH } from "../constants/actionTypes";
+import { AUTH } from "../constants/actionTypes";
 import * as api from "../api/api";
 import { toast } from "react-toastify";
 
